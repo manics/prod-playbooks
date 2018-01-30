@@ -1,0 +1,27 @@
+# Install NGINX caching proxy for downloads
+
+- hosts: downloads-cache
+
+  roles:
+  - role: openmicroscopy.nginx-proxy
+
+  vars:
+    nginx_proxy_backends:
+    - location: /
+      server: https://downloads.openmicroscopy.org
+      cache_validity: 30d
+      host_header: downloads.openmicroscopy.org
+    nginx_proxy_cache_key: "$request_uri"
+    nginx_proxy_cache_match_uri:
+    - "~"
+    nginx_proxy_caches:
+    - name: downloads
+      maxsize: 100g
+      keysize: 1m
+      inactive: 30d
+      match:
+      - default
+    nginx_proxy_conf_http:
+    - "client_max_body_size 2g"
+    nginx_proxy_log_format: main_timed_cache_upstream
+    nginx_proxy_server_name: 10.0.51.125
