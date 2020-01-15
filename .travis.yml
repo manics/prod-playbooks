@@ -7,6 +7,9 @@ install:
   - pip install jmespath
 
 script:
+  # Workaround frequent travis timeouts by installing roles ourselves
+  # and setting ANSIBLE_ROLES_PATH in molecule.yml
+  - travis_retry ansible-galaxy install -r requirements.yml
   - molecule test -s $SCENARIO
 
 env:

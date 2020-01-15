@@ -1,8 +1,8 @@
 ---
-dependency:
-  name: galaxy
-  options:
-    role-file: requirements.yml
+# dependency:
+#   name: galaxy
+#   options:
+#     role-file: requirements.yml
 driver:
   name: docker
 lint:
@@ -18,6 +18,8 @@ provisioner:
     converge: ../../ome-dundeeomero.yml
   lint:
     name: ansible-lint
+  env:
+    ANSIBLE_ROLES_PATH: ../../vendor
 scenario:
   name: ome-dundeeomero
   test_sequence:

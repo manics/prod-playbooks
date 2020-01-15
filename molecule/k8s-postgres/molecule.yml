@@ -1,8 +1,8 @@
 ---
-dependency:
-  name: galaxy
-  options:
-    role-file: requirements.yml
+# dependency:
+#   name: galaxy
+#   options:
+#     role-file: requirements.yml
 driver:
   name: docker
 lint:
@@ -22,6 +22,8 @@ provisioner:
     converge: ../../k8s/postgres/playbook.yml
   lint:
     name: ansible-lint
+  env:
+    ANSIBLE_ROLES_PATH: ../../vendor
 scenario:
   name: k8s-postgres
 verifier:
